@@ -1,0 +1,47 @@
+body {
+  background-color: lightgray;
+}
+
+main {
+  overflow: auto;
+  height: auto;
+  width: 700px;
+  padding: 20px;
+  margin: 0px auto 0px auto;
+  background-color: white;
+  box-shadow: 10px 20px 5px 5px DarkGray
+}
+
+.horizlist {
+  margin: 0;
+  padding: 0;
+  list-stye-type: none;
+}
+
+.horizlist li {
+  display: inline-block;
+  padding: 0px 20px 0px 0px;
+  border-right: 2px solid darkgray;
+}
+
+.horizlist li:last-child {
+  border-right: 0px
+}
+
+.horizlist li p {
+  margin: 0;
+  padding: 2px;
+}
+
+.category, .entries {
+  float: left;
+}
+
+.category {
+  width: 100px;
+}
+
+.category p {
+  padding: 2px;
+  margin: 0;
+}
