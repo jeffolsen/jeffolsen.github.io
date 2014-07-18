@@ -5,7 +5,7 @@ body {
 main {
   overflow: auto;
   height: auto;
-  width: 700px;
+  max-width: 700px;
   padding: 20px;
   margin: 0px auto 0px auto;
   background-color: white;
@@ -42,6 +42,21 @@ main {
 }
 
 .category p {
-  padding: 2px;
-  margin: 0;
+    margin: 0;
+}
+
+@media screen {
+  .category p {
+    padding: 2px;
+    font: 15px arial, sans-serif;
+    color: red;
+  }
+}
+
+@media mobile {
+  .category p {
+    padding: 2px;
+    font: 10px arial, sans-serif;
+    color: blue;
+  }
 }
