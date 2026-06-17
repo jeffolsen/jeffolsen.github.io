@@ -1,0 +1,9 @@
+<main>
+  <h1>{{ title() }}</h1>
+
+  @if (data(); as value) {
+    <app-code-block label="GET /todos/1 (cached)" [data]="value" />
+  } @else {
+    <p>Loading…</p>
+  }
+</main>
