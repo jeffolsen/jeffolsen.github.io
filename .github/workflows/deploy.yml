@@ -24,6 +24,18 @@ jobs:
           node-version-file: .nvmrc
           cache: yarn
       - run: yarn install --frozen-lockfile
+      - name: Write runtime config
+        env:
+          API_BASE_URL: ${{ secrets.API_BASE_URL }}
+          API_KEY: ${{ secrets.API_KEY }}
+        run: |
+          API_BASE_URL="${API_BASE_URL:-https://jsonplaceholder.typicode.com}"
+          cat > public/config.json <<EOF
+          {
+            "apiBaseUrl": "$API_BASE_URL",
+            "apiKey": "$API_KEY"
+          }
+          EOF
       - run: yarn build
       - uses: actions/upload-pages-artifact@v3
         with:
