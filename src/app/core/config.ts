@@ -3,11 +3,13 @@ import { Service, signal } from '@angular/core';
 export interface AppConfig {
   apiBaseUrl: string;
   apiKey: string;
+  apiSlug: string;
 }
 
 const FALLBACK_CONFIG: AppConfig = {
   apiBaseUrl: '',
   apiKey: '',
+  apiSlug: '',
 };
 
 @Service()

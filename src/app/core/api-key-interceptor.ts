@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 
 import { Config } from './config';
 
-/** Attaches the API key to requests targeting the configured API base URL. */
+/** Marks requests as using a read-only API key (rather than a user's auth session) for requests targeting the configured API base URL. */
 export const apiKeyInterceptor: HttpInterceptorFn = (req, next) => {
   const config = inject(Config).value();
 
@@ -11,5 +11,12 @@ export const apiKeyInterceptor: HttpInterceptorFn = (req, next) => {
     return next(req);
   }
 
-  return next(req.clone({ setHeaders: { Authorization: `Bearer ${config.apiKey}` } }));
+  return next(
+    req.clone({
+      setHeaders: {
+        'X-Api-Key': config.apiKey,
+        'X-Api-Slug': config.apiSlug,
+      },
+    }),
+  );
 };

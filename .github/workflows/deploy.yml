@@ -28,12 +28,14 @@ jobs:
         env:
           API_BASE_URL: ${{ secrets.API_BASE_URL }}
           API_KEY: ${{ secrets.API_KEY }}
+          API_SLUG: ${{ secrets.API_SLUG }}
         run: |
           API_BASE_URL="${API_BASE_URL:-https://jsonplaceholder.typicode.com}"
           cat > public/config.json <<EOF
           {
             "apiBaseUrl": "$API_BASE_URL",
-            "apiKey": "$API_KEY"
+            "apiKey": "$API_KEY",
+            "apiSlug": "$API_SLUG"
           }
           EOF
       - run: yarn build

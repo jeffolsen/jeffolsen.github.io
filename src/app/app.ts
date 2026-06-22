@@ -17,6 +17,10 @@ export class App {
 
   constructor() {
     // Placeholder endpoint — swap for the real apiBaseUrl/path once known, see public/config.json.
-    this.api.fetch('/todos/1').subscribe((response) => this.data.set(response));
+    this.api
+      .fetch(
+        '/feeds/by-path?path=cv&subjectType=COLLECTION&liveOnly=true&includes=tags,components,links',
+      )
+      .subscribe((response) => this.data.set(response));
   }
 }
