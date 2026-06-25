@@ -9,7 +9,3 @@ export interface Feed extends SeoMetadata {
   links: CmsLinkFeed;
   components: CmsBlockConfig[];
 }
-
-export interface PageDataResponse {
-  feed: Feed;
-}
