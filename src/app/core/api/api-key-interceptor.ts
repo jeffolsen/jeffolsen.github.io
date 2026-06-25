@@ -1,7 +1,7 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 
-import { Config } from './config';
+import { Config } from '../config';
 
 /** Marks requests as using a read-only API key (rather than a user's auth session) for requests targeting the configured API base URL. */
 export const apiKeyInterceptor: HttpInterceptorFn = (req, next) => {

@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 
-import { Api } from './core/api';
+import { Api } from './core/api/api';
 import { CodeBlock } from './shared/components/code-block/code-block';
 
 @Component({

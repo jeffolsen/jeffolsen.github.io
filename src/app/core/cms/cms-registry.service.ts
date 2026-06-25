@@ -2,7 +2,7 @@ import { inject, Service, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Feed } from './models/feed.model';
 import { Item } from './models/item.model';
-import { Api } from '../api';
+import { Api } from '../api/api';
 import { HttpParams } from '@angular/common/http';
 import { SubjectType } from './models/block-config.model';
 
@@ -34,6 +34,12 @@ export class CmsRegistry {
     return this.api.fetch(`/feeds/by-path?${params.toString()}`);
   }
   getItemBySlug(slug: string): Observable<Item | null> {
-    return this.api.fetch(`/item/by-slug/${slug}`);
+    const params = new HttpParams({
+      fromObject: {
+        liveOnly: 'true',
+        includes: 'tags,images,dateRanges',
+      },
+    });
+    return this.api.fetch(`/item/by-slug/${slug}?${params}`);
   }
 }

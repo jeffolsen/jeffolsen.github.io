@@ -3,7 +3,7 @@ import { Service, inject } from '@angular/core';
 import { Observable, from, map, of, shareReplay, switchMap } from 'rxjs';
 
 import { Cache } from './cache';
-import { Config } from './config';
+import { Config } from '../config';
 
 const DEFAULT_TTL_MS = 5 * 60 * 1000;
 
@@ -30,15 +30,22 @@ export class Api {
         if (cached !== undefined) {
           return of(cached);
         }
-        return this.http.get<T>(url).pipe(
-          switchMap((response) => from(this.cache.set(cacheKey, response, ttlMs)).pipe(map(() => response))),
-        );
+        return this.http
+          .get<T>(url)
+          .pipe(
+            switchMap((response) =>
+              from(this.cache.set(cacheKey, response, ttlMs)).pipe(map(() => response)),
+            ),
+          );
       }),
       shareReplay({ bufferSize: 1, refCount: true }),
     );
 
     this.inFlight.set(cacheKey, request$);
-    request$.subscribe({ complete: () => this.inFlight.delete(cacheKey), error: () => this.inFlight.delete(cacheKey) });
+    request$.subscribe({
+      complete: () => this.inFlight.delete(cacheKey),
+      error: () => this.inFlight.delete(cacheKey),
+    });
 
     return request$;
   }
