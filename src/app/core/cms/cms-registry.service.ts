@@ -1,5 +1,5 @@
 import { inject, Service, signal } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { Feed } from './models/feed.model';
 import { Item } from './models/item.model';
 import { Api } from '../api/api';
@@ -31,7 +31,10 @@ export class CmsRegistry {
         subjectType,
       },
     });
-    return this.api.fetch(`/feeds/by-path?${params.toString()}`);
+    return this.api.fetch<FeedResponse>(`/feeds/by-path?${params.toString()}`).pipe(
+      map((response) => response.feed),
+      catchError(() => of(null)),
+    );
   }
   getItemBySlug(slug: string): Observable<Item | null> {
     const params = new HttpParams({
@@ -40,6 +43,9 @@ export class CmsRegistry {
         includes: 'tags,images,dateRanges',
       },
     });
-    return this.api.fetch(`/item/by-slug/${slug}?${params}`);
+    return this.api.fetch<ItemResponse>(`/item/by-slug/${slug}?${params.toString()}`).pipe(
+      map((response) => response.item),
+      catchError(() => of(null)),
+    );
   }
 }
